@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <div>sup</div>
+    <div>My environemnt is {process.env.NEXT_PUBLIC_TEST}</div>
   )
 }
