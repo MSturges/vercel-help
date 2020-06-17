@@ -1,5 +1,7 @@
-export default function Home() {
+import Home from '../components/Home/index'
+
+export default function HomePage() {
   return (
-    <div>My environemnt is this right: {process.env.NEXT_PUBLIC_TEST}</div>
+    <Home />
   )
 }

@@ -8,17 +8,30 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.19",
+    "@fortawesome/free-brands-svg-icons": "^5.9.0",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "formik": "^1.5.8",
     "next": "9.4.4",
+    "polished": "^1.3.0",
+    "prop-types": "^15.7.2",
     "react": "16.13.1",
+    "react-animations": "^1.0.0",
     "react-dom": "16.13.1",
-    "styled-components": "^4.4.0",
-    "formik": "^1.5.8"
+    "react-toastify": "^6.0.5",
+    "styled-components": "^4.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
+    "dotenv": "^8.2.0",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^2.10.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-class-property": "^1.0.6",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",

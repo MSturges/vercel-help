@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import App from 'next/app'
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import Theme from '../theme'
 
 const GlobalStyle = createGlobalStyle`
 *,
@@ -44,7 +45,6 @@ body {
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
-
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
     }
@@ -57,7 +57,9 @@ class MyApp extends App {
     return (
       <Fragment>
         <GlobalStyle />
-        <Component {...pageProps} />
+        <ThemeProvider theme={Theme.leadPilot}>
+          <Component {...pageProps} />
+        </ThemeProvider>
       </Fragment>
     )
   }
