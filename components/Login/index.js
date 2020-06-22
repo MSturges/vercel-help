@@ -1,7 +1,7 @@
 import { Formik } from 'formik'
 import styled, { css } from 'styled-components'
 
-import { Button, Notice, Input } from '../common/index'
+import { Button, Notice, Input } from '../UI/index'
 
 const Login = (props) => (
   <Container>

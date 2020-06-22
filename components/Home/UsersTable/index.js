@@ -15,7 +15,7 @@ const UsersTable = () => {
   })
   const [dataState, setDataState] = useState({
     loading: true,
-    data: [{}],
+    data: [{ role: 'owner', name: 'max', email: 'max.r.sturges@gmail.com' }],
     totalCount: 0
   })
   // pagination state

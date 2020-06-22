@@ -23,9 +23,7 @@ import {
 const Table = ({ valuesToRender }) => {
 
   const actionItems = ['Edit']
-  if (item.role !== 'owner') {
-    actionItems.push('Remove')
-  }
+
 
   const handleActionChange = (action, item) => {
     if (action === 'Edit') {
@@ -38,9 +36,6 @@ const Table = ({ valuesToRender }) => {
         <TableHeadRow top>
           <TableHeaderCell flexBasis="16rem" flexGrow="1">
             User
-          </TableHeaderCell>
-          <TableHeaderCell flexBasis="16rem" flexGrow="1">
-            Teams
           </TableHeaderCell>
           <TableHeaderCell flexBasis="8rem">Role</TableHeaderCell>
           <TableHeaderCell flexBasis="8rem" rightAlign>
@@ -66,17 +61,7 @@ const Table = ({ valuesToRender }) => {
                   </CardInfoColumn>
                 </CardWrapper>
               </TableCell>
-              <TableCell flexBasis="16rem" flexGrow="1">
-                {item.teams.map((team, i) => {
-                  if (item.teams.length <= 1) {
-                    return team.name
-                  }
-                  if (item.teams.length === i + 1) {
-                    return team.name
-                  }
-                  return `${team.name}, `
-                })}
-              </TableCell>
+      
               <TableCell flexBasis="8rem" capitalize>
                 {item.role}
               </TableCell>
