@@ -1,14 +1,28 @@
-import { MongoClient } from 'mongodb';
+const { MongoClient } = require('mongodb')
 
-const client = new MongoClient(process.env.MONGO, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+let db
+const database = async (req, res, next) => {
+  if (db && db.readyState === 1) {
+    return {
+      db
+    }
+  }
+  try {
+    const client = await new MongoClient.connect(process.env.MONGO, {
+      useNewUrlParser: true,
+      poolSize: 5
+    })
+    db = client.db('admin')
 
-export default async function database(req, res, next) {
-  if (!client.isConnected()) await client.connect();
-  req.dbClient = client;
-  req.db = client.db(process.env.DB_NAME);
-  await setUpDb(req.db);
-  return next();
+
+    console.log('db', db)
+
+    req.db = db
+
+    next()
+  } catch (e) {
+    console.error(e)
+  }
 }
+
+module.exports = database

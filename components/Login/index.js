@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 import { Button, Notice, Input } from '../UI/index'
 
-const Login = (props) => (
+const Login = props => (
   <Container>
     <FormWrapper>
       <StyledTitle isLogin>Admin Portal</StyledTitle>
@@ -13,6 +13,12 @@ const Login = (props) => (
         initialValues={{ email: '', password: '' }}
         onSubmit={async (values, { setSubmitting, setErrors }) => {
           console.log('values', values)
+
+          const res = await fetch('/api/auth/login', {
+            method: 'POST'
+          })
+
+          console.log('res', res)
         }}
       >
         {({
@@ -22,7 +28,7 @@ const Login = (props) => (
           handleChange,
           isSubmitting,
           touched,
-          setFieldTouched,
+          setFieldTouched
         }) => (
           <form onSubmit={handleSubmit}>
             <Wrapper>
@@ -62,7 +68,7 @@ const Login = (props) => (
                   glow
                   jumbo
                   block
-                  loading={isSubmitting}
+                  // loading={isSubmitting}
                 />
               </ButtonWrapper>
             </Wrapper>
@@ -92,12 +98,10 @@ const FormWrapper = styled.div`
   width: 30rem;
   margin: 0 auto;
   margin-bottom: 10rem;
-  background-color: ${({theme}) => theme.defaultColor.pastel};
+  background-color: ${({ theme }) => theme.defaultColor.pastel};
   padding: 2rem;
-  box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.75);
-  border-radius: .5rem;
-
-
+  box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.75);
+  border-radius: 0.5rem;
 
   animation: 1s cubic-bezier(0.19, 1, 0.22, 1) 0.3s both fadeInUp;
 `
@@ -111,13 +115,12 @@ const ButtonWrapper = styled.div`
   margin-bottom: 1.5rem;
 `
 
-
 const StyledP = styled.p`
   margin: 0 1rem 2em;
   font-size: 1em;
   text-align: center;
   line-height: 1.5;
-  color: ${(props) => props.theme.colors.gray};
+  color: ${props => props.theme.colors.gray};
   animation: 1s cubic-bezier(0.19, 1, 0.22, 1) 0.2s both fadeInUp;
 `
 
@@ -130,7 +133,7 @@ const StyledTitle = styled.h1`
   text-align: center;
   animation: 1s cubic-bezier(0.19, 1, 0.22, 1) 0.15s both fadeInUp;
 
-  ${(props) =>
+  ${props =>
     props.isLogin &&
     css`
       font-size: 1.75em;
