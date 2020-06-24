@@ -3,18 +3,18 @@ import styled, { css } from 'styled-components'
 
 import { Button, Notice, Input } from '../UI/index'
 
-const Login = props => (
+const Signup = props => (
   <Container>
     <FormWrapper>
       <StyledTitle isLogin>Admin Portal</StyledTitle>
-      <StyledP>Sign in to your account to continue.</StyledP>
+      <StyledP>Sign Up New Account</StyledP>
       <Formik
         enableReinitialize
         initialValues={{ email: '', password: '' }}
         onSubmit={async (values, { setSubmitting, setErrors }) => {
           console.log('values', values)
 
-          const res = await fetch('/api/auth/login', {
+          const res = await fetch('/api/auth/signup', {
             method: 'POST'
           })
 
@@ -129,4 +129,4 @@ const StyledTitle = styled.h1`
       font-size: 1.75em;
     `};
 `
-export default Login
+export default Signup
