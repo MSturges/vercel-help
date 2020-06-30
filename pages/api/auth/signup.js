@@ -1,3 +1,6 @@
+import qs from 'qs'
+import bcrypt from 'bcryptjs'
+
 import middleware from '../../../middlewares/middleware'
 
 export default async (req, res) => {
@@ -6,19 +9,20 @@ export default async (req, res) => {
   try {
     await middleware(req, res)
 
-    const { Models } = req
+    console.log('req', req.Models)
 
-    console.log(
-      Models
-    )
+    const { Models, body } = req
 
-    const UserDoc = await Models.Admin.find({})
 
-    console.log('UserDoc', UserDoc)
+    const { email, password } = qs.parse(body)
+    const hashPassword = await bcrypt.hash(password, 10)
 
-    // const yo = AdminModel.findOne({email: 'max.r.sturges+asdasd@gmail.com'})
+    const Admin = await Models.Admin.create({
+      email,
+      password: hashPassword
+    })
 
-    // console.log('yo', yo)
+    console.log('Admin', Admin)
   } catch (e) {
     console.log('e', e)
     res.end('e', e)

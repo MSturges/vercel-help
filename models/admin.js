@@ -16,6 +16,10 @@ const Admin = conn => {
       name: {
         type: String
       },
+      verified: {
+        type: Boolean,
+        default: false
+      },
       created_at: {
         type: Date,
         default: Date.now
@@ -23,6 +27,8 @@ const Admin = conn => {
     },
     { collection: 'admin', versionKey: false }
   )
+  AdminSchema.index({ email: 1 }, { unique: true })
+
   return conn.model('admin', AdminSchema)
 }
 

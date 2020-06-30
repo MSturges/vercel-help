@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-return-await */
 const mongoose = require('mongoose')
 const promiseRetry = require('promise-retry')
@@ -30,6 +31,7 @@ const database = async (req, res, next) => {
         req.Models = Models(conn)
         next()
       } catch (e) {
+        console.log('db e', e)
         return e
       }
     },

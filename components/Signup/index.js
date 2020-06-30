@@ -1,4 +1,5 @@
 import { Formik } from 'formik'
+import qs from 'qs'
 import styled, { css } from 'styled-components'
 
 import { Button, Notice, Input } from '../UI/index'
@@ -10,15 +11,41 @@ const Signup = props => (
       <StyledP>Sign Up New Account</StyledP>
       <Formik
         enableReinitialize
-        initialValues={{ email: '', password: '' }}
+        initialValues={{ email: '', password: '', verifyPassword: '' }}
         onSubmit={async (values, { setSubmitting, setErrors }) => {
-          console.log('values', values)
+
+          setSubmitting(true)
 
           const res = await fetch('/api/auth/signup', {
-            method: 'POST'
+            method: 'POST',
+            body: qs.stringify({ ...values })
           })
 
-          console.log('res', res)
+          setSubmitting(false)
+
+          console.log('res', res.json())
+        }}
+        validate={values => {
+          const errors = {}
+          const emailFormat = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          const passwordFormat = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*([^a-zA-Z\d\s])).{8,}$/
+
+          if (!values.email) {
+            errors.email = 'Email is required'
+          } else if (!emailFormat.test(values.email)) {
+            errors.email = 'Invalid email address'
+          }
+          if (!values.password) {
+            errors.password = 'Password is required'
+          } else if (!passwordFormat.test(values.password)) {
+            errors.password =
+              'Requires: 1 number, 1 special character, 1 uppercase letter, and 1 lowercase letter. Minimum length: 8 characters.'
+          }
+          if (values.password !== values.verifyPassword) {
+            errors.verifyPassword = 'Passwords do not match.'
+          }
+
+          return errors
         }}
       >
         {({
@@ -59,6 +86,19 @@ const Signup = props => (
                 error={errors.password}
                 onBlur={() => setFieldTouched('password', true)}
                 showError={touched.password}
+              />
+              <Input
+                type="password"
+                name="verifyPassword"
+                autocomplete="current-password"
+                onChange={handleChange}
+                placeholder="Verify Password"
+                value={values.verifyPassword}
+                togglePrivacy
+                glow
+                error={errors.verifyPassword}
+                onBlur={() => setFieldTouched('verifyPassword', true)}
+                showError={touched.verifyPassword}
               />
               <ButtonWrapper>
                 <Button

@@ -1,7 +1,12 @@
 import { Formik } from 'formik'
 import styled, { css } from 'styled-components'
+import qs from 'qs'
+import { Cookies } from 'react-cookie'
+import Router from 'next/router'
 
 import { Button, Notice, Input } from '../UI/index'
+
+const cookies = new Cookies()
 
 const Login = props => (
   <Container>
@@ -10,15 +15,30 @@ const Login = props => (
       <StyledP>Sign in to your account to continue.</StyledP>
       <Formik
         enableReinitialize
-        initialValues={{ email: '', password: '' }}
+        initialValues={{ email: 'max@gmail.com', password: 'Srehctap660!' }}
         onSubmit={async (values, { setSubmitting, setErrors }) => {
-          console.log('values', values)
+          setSubmitting(true)
 
-          const res = await fetch('/api/auth/login', {
-            method: 'POST'
-          })
+          try {
+            const res = await fetch('/api/auth/login', {
+              method: 'POST',
+              body: qs.stringify({ ...values })
+            })
+            setSubmitting(false)
 
-          console.log('res', res)
+            if (res.status === 401) {
+              setErrors({ serverError: 'Email or password is incorrect' })
+            }
+
+            const data = await res.json()
+            cookies.set('token', data.token)
+
+            Router.push('/')
+          } catch (e) {
+            setSubmitting(false)
+
+            console.log('login error', e)
+          }
         }}
       >
         {({
@@ -68,7 +88,7 @@ const Login = props => (
                   glow
                   jumbo
                   block
-                  // loading={isSubmitting}
+                  loading={isSubmitting}
                 />
               </ButtonWrapper>
             </Wrapper>
