@@ -73,6 +73,11 @@ const PaginationButton = styled.button`
   outline: none;
   margin-left: 1rem;
 
+  svg {
+   height: 1rem;
+   width: 9.12rem;
+  }
+
   ${({ rotate }) =>
     rotate
       ? css`

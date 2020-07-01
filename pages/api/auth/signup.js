@@ -4,15 +4,10 @@ import bcrypt from 'bcryptjs'
 import middleware from '../../../middlewares/middleware'
 
 export default async (req, res) => {
-  // console.log('req', req)
-
   try {
     await middleware(req, res)
 
-    console.log('req', req.Models)
-
     const { Models, body } = req
-
 
     const { email, password } = qs.parse(body)
     const hashPassword = await bcrypt.hash(password, 10)

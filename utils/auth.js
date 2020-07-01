@@ -7,7 +7,7 @@ export async function handleAuthSSR(ctx) {
   let token = null
 
   // if context has request info aka Server Side
-  if (ctx.req) {
+  if (ctx.req && ctx.req.headers.cookie) {
     // ugly way to get cookie value from a string of values
     // good enough for demostration
     token = ctx.req.headers.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, '$1')

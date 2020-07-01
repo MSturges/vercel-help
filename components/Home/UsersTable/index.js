@@ -1,11 +1,14 @@
 /* eslint-disable radix */
 import React, { useEffect, useState, Fragment } from 'react'
 
+import { useIsMount } from '../../../hooks/useIsMount'
 import SearchBar from './SearchBar'
 import Table from './Table'
 import Navigation from './Navigation'
 
-const UsersTable = () => {
+const UsersTable = ({ users, total }) => {
+  const isMount = useIsMount()
+
   const [queryState, setQueryState] = useState({
     skip: 0,
     limit: 100,
@@ -14,59 +17,62 @@ const UsersTable = () => {
     q: ''
   })
   const [dataState, setDataState] = useState({
-    loading: true,
-    data: [{ role: 'owner', name: 'max', email: 'max.r.sturges@gmail.com' }],
-    totalCount: 0
+    loading: false,
+    data: users,
+    totalCount: total
   })
   // pagination state
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
-  const [pageSize, setPageSize] = useState(100)
+  const [pageSize, setPageSize] = useState(10)
 
   const startIndex = page * pageSize
   const endIndex = page * pageSize + pageSize
   const numberOfPages = Math.ceil(dataState.totalCount / pageSize)
 
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     setDataState({ ...dataState, loading: true })
-  //     try {
-  //       const response = await api.shared.getEmailRecipients({
-  //         ...queryState,
-  //         id: match.params._id
-  //       })
-  //       // if search term...
-  //       if (queryState.q !== '') {
-  //         if (queryState.skip > 0) {
-  //           return setDataState({
-  //             ...dataState,
-  //             data: [...dataState.data, ...response.data.data.EmailTrack],
-  //             totalCount: response.data.data.total_count
-  //           })
-  //         }
-  //         return setDataState({
-  //           ...dataState,
-  //           data: response.data.data.EmailTrack,
-  //           totalCount: response.data.data.total_count
-  //         })
-  //       }
-  //       return setDataState({
-  //         ...dataState,
-  //         data: [...dataState.data, ...response.data.data.EmailTrack],
-  //         totalCount: response.data.data.total_count,
-  //         loading: false
-  //       })
-  //     } catch (e) {
-  //       console.log('e', e)
-  //       NotificationError({
-  //         message: 'An error occured for getting email recipients list',
-  //         duration: 5000
-  //       })
-  //     }
-  //   }
+  useEffect(() => {
+    const getData = async () => {
+      setDataState({ ...dataState, loading: true })
+      try {
+        const response = await api.shared.getEmailRecipients({
+          ...queryState,
+          id: match.params._id
+        })
+        // if search term...
+        if (queryState.q !== '') {
+          if (queryState.skip > 0) {
+            return setDataState({
+              ...dataState,
+              data: [...dataState.data, ...response.data.data.EmailTrack],
+              totalCount: response.data.data.total_count
+            })
+          }
+          return setDataState({
+            ...dataState,
+            data: response.data.data.EmailTrack,
+            totalCount: response.data.data.total_count
+          })
+        }
+        return setDataState({
+          ...dataState,
+          data: [...dataState.data, ...response.data.data.EmailTrack],
+          totalCount: response.data.data.total_count,
+          loading: false
+        })
+      } catch (e) {
+        console.log('e', e)
+        // NotificationError({
+        //   message: 'An error occured for getting email recipients list',
+        //   duration: 5000
+        // })
+      }
+    }
 
-  //   getData()
-  // }, [queryState])
+    if (isMount) {
+      return
+    }
+    getData()
+  }, [queryState])
 
   const handlePreviousChange = () => {
     if (page > 0) {

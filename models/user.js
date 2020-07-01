@@ -65,11 +65,11 @@ const User = conn => {
         index: true
       },
       start_guide_steps: {
-         welcome_1:{
+        welcome_1: {
           type: Boolean,
           default: false
         },
-         welcome_2:{
+        welcome_2: {
           type: Boolean,
           default: false
         },
@@ -109,11 +109,11 @@ const User = conn => {
       permissions: {
         edit_drafts: {
           type: Boolean,
-          default: true,
+          default: true
         },
         create_drafts: {
           type: Boolean,
-          default: true,
+          default: true
         }
       },
       email_triggers: {
@@ -150,6 +150,13 @@ const User = conn => {
     },
     { collection: 'user', versionKey: false }
   )
+
+  User.index({
+    email: 'text',
+    first_name: 'text',
+    last_name: 'text'
+  })
+
   return conn.model('user', User)
 }
 

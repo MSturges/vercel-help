@@ -15,15 +15,13 @@ import {
   CardWrapper,
   Chip,
   TableCell,
-  Button,
+  Button
   // NotificationError,
   // NotificationSuccess
 } from '../../UI/index'
 
 const Table = ({ valuesToRender }) => {
-
   const actionItems = ['Edit']
-
 
   const handleActionChange = (action, item) => {
     if (action === 'Edit') {
@@ -31,53 +29,49 @@ const Table = ({ valuesToRender }) => {
     }
   }
   return (
-    <TableWrapper minWidth="100px" useSylesTwoForDrawer>
-      <TableWrapper minWidth="1000px">
-        <TableHeadRow top>
-          <TableHeaderCell flexBasis="16rem" flexGrow="1">
-            User
-          </TableHeaderCell>
-          <TableHeaderCell flexBasis="8rem">Role</TableHeaderCell>
-          <TableHeaderCell flexBasis="8rem" rightAlign>
-            Actions
-          </TableHeaderCell>
-        </TableHeadRow>
-        <TableBody>
-          {valuesToRender.map((item, index) => (
-            <TableRow className="table-row" noBorder={valuesToRender.length === index + 1}>
-              <TableCell flexBasis="16rem" flexGrow="1" fitted="16rem">
-                <CardWrapper>
-                  <CardImage
-                    src={
-                      item.profile_image
-                        ? CDN_URL + item.profile_image
-                        : '/assets/img/MA_default-avatar.png'
-                    }
-                    alt={item.profile_image}
-                  />
-                  <CardInfoColumn>
-                    <CardInfoColumnTitle>{item.name}</CardInfoColumnTitle>
-                    <CardInfoColumnDesctiption>{item.email}</CardInfoColumnDesctiption>
-                  </CardInfoColumn>
-                </CardWrapper>
-              </TableCell>
-      
-              <TableCell flexBasis="8rem" capitalize>
-                {item.role}
-              </TableCell>
-        
-              <TableCell flexBasis="8rem" rightAlign>
-                <CardInfoColumn right>
-                  <Wrapper>
-                    actions
-                  </Wrapper>
+    <TableWrapper minWidth="1000px">
+      <TableHeadRow top>
+        <TableHeaderCell flexBasis="16rem" flexGrow="1">
+          User
+        </TableHeaderCell>
+        <TableHeaderCell flexBasis="8rem">Role</TableHeaderCell>
+        <TableHeaderCell flexBasis="8rem" rightAlign>
+          Actions
+        </TableHeaderCell>
+      </TableHeadRow>
+      <TableBody>
+        {valuesToRender.map((item, index) => (
+          <TableRow className="table-row" noBorder={valuesToRender.length === index + 1}>
+            <TableCell flexBasis="16rem" flexGrow="1" fitted="16rem">
+              <CardWrapper>
+                <CardImage
+                  src={
+                    item.profile_image
+                      ? CDN_URL + item.profile_image
+                      : '/assets/img/MA_default-avatar.png'
+                  }
+                  alt={item.profile_image}
+                />
+                <CardInfoColumn>
+                  <CardInfoColumnTitle>{item.name}</CardInfoColumnTitle>
+                  <CardInfoColumnDesctiption>{item.email}</CardInfoColumnDesctiption>
                 </CardInfoColumn>
-              </TableCell>
-            </TableRow>
-          ))}
-          {valuesToRender.length <= 0 ? <NoData>No Teams Members</NoData> : ''}
-        </TableBody>
-      </TableWrapper>
+              </CardWrapper>
+            </TableCell>
+
+            <TableCell flexBasis="8rem" capitalize>
+              {item.role}
+            </TableCell>
+
+            <TableCell flexBasis="8rem" rightAlign>
+              <CardInfoColumn right>
+                <Wrapper>actions</Wrapper>
+              </CardInfoColumn>
+            </TableCell>
+          </TableRow>
+        ))}
+        {valuesToRender.length <= 0 ? <NoData>No Teams Members</NoData> : ''}
+      </TableBody>
     </TableWrapper>
   )
 }
