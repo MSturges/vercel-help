@@ -1,10 +1,14 @@
 /* eslint-disable radix */
 import React, { useEffect, useState, Fragment } from 'react'
+import { Cookies } from 'react-cookie'
 
 import { useIsMount } from '../../../hooks/useIsMount'
 import SearchBar from './SearchBar'
 import Table from './Table'
 import Navigation from './Navigation'
+import { FullPageLoader } from '../../UI/index'
+
+const cookies = new Cookies()
 
 const UsersTable = ({ users, total }) => {
   const isMount = useIsMount()
@@ -33,38 +37,42 @@ const UsersTable = ({ users, total }) => {
   useEffect(() => {
     const getData = async () => {
       setDataState({ ...dataState, loading: true })
+
+      const token = cookies.get('token')
       try {
-        const response = await api.shared.getEmailRecipients({
-          ...queryState,
-          id: match.params._id
-        })
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}users?skip=${queryState.skip}&limit=${queryState.limit}&sort_column=${queryState.sort_column}&sort_dir=${queryState.sort_dir}&q=${queryState.q}`,
+          {
+            method: 'GET',
+            headers: { Authorization: token }
+          }
+        )
+
+        const data = await response.json()
+
         // if search term...
         if (queryState.q !== '') {
           if (queryState.skip > 0) {
             return setDataState({
               ...dataState,
-              data: [...dataState.data, ...response.data.data.EmailTrack],
-              totalCount: response.data.data.total_count
+              data: [...dataState.data, ...data.users],
+              totalCount: data.total
             })
           }
           return setDataState({
             ...dataState,
-            data: response.data.data.EmailTrack,
-            totalCount: response.data.data.total_count
+            data: data.users,
+            totalCount: data.total
           })
         }
         return setDataState({
           ...dataState,
-          data: [...dataState.data, ...response.data.data.EmailTrack],
-          totalCount: response.data.data.total_count,
+          data: [...dataState.data, ...data.users],
+          totalCount: data.total,
           loading: false
         })
       } catch (e) {
         console.log('e', e)
-        // NotificationError({
-        //   message: 'An error occured for getting email recipients list',
-        //   duration: 5000
-        // })
       }
     }
 
@@ -109,7 +117,7 @@ const UsersTable = ({ users, total }) => {
     setQueryState({
       skip: 0,
       limit: 100,
-      sort_column: '',
+      sort_column: 'created_at',
       sort_dir: -1,
       q: ''
     })
@@ -123,17 +131,23 @@ const UsersTable = ({ users, total }) => {
         handleSearchDataByTerm={handleSearchDataByTerm}
         handleClearSearchTerm={handleClearSearchTerm}
       />
-      <Table valuesToRender={dataState.data.slice(startIndex, endIndex)} />
-      <Navigation
-        page={page}
-        pageSize={pageSize}
-        numberOfPages={numberOfPages}
-        handlePreviousChange={handlePreviousChange}
-        handleNextChange={handleNextChange}
-        handleSetPageSize={handleSetPageSize}
-        total={dataState.totalCount}
-        dataItemName="contacts"
-      />
+      {dataState.loading ? (
+        <FullPageLoader />
+      ) : (
+        <Fragment>
+          <Table valuesToRender={dataState.data.slice(startIndex, endIndex)} />
+          <Navigation
+            page={page}
+            pageSize={pageSize}
+            numberOfPages={numberOfPages}
+            handlePreviousChange={handlePreviousChange}
+            handleNextChange={handleNextChange}
+            handleSetPageSize={handleSetPageSize}
+            total={dataState.totalCount}
+            dataItemName="contacts"
+          />
+        </Fragment>
+      )}
     </Fragment>
   )
 }

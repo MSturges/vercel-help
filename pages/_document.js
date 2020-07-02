@@ -21,18 +21,16 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           {this.props.styleTags}
-          <link
+          {/* <link
             rel="shortcut icon"
             href="https://cdn.leadpilot.io/lp_favicon.ico"
             type="image/x-icon"
-          />
+          /> */}
         </Head>
         <body>
           <svg
             style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}
             version="1.1"
-            // xmlns="http://www.w3.org/2000/svg"
-            // xmlns:xlink="http://www.w3.org/1999/xlink"
           >
             <defs>
               <symbol id="icon-left-chevron" viewBox="0 0 24 24">

@@ -34,21 +34,24 @@ const Table = ({ valuesToRender }) => {
         <TableHeaderCell flexBasis="16rem" flexGrow="1">
           User
         </TableHeaderCell>
+        <TableHeaderCell flexBasis="16rem">Company</TableHeaderCell>
         <TableHeaderCell flexBasis="8rem">Role</TableHeaderCell>
+        <TableHeaderCell flexBasis="8rem">Status</TableHeaderCell>
         <TableHeaderCell flexBasis="8rem" rightAlign>
           Actions
         </TableHeaderCell>
       </TableHeadRow>
       <TableBody>
-        {valuesToRender.map((item, index) => (
-          <TableRow className="table-row" noBorder={valuesToRender.length === index + 1}>
+        {/* {valuesToRender.map((item, index) => console.log('item',item) || ( */}
+        {valuesToRender.map((item, index) =>  (
+          <TableRow className="table-row" noBorder={valuesToRender.length === index + 1} key={item.email}>
             <TableCell flexBasis="16rem" flexGrow="1" fitted="16rem">
               <CardWrapper>
                 <CardImage
                   src={
                     item.profile_image
-                      ? CDN_URL + item.profile_image
-                      : '/assets/img/MA_default-avatar.png'
+                      ? process.env.NEXT_PUBLIC_CDN_URL + item.profile_image
+                      : '/MA_default-avatar.png'
                   }
                   alt={item.profile_image}
                 />
@@ -59,8 +62,14 @@ const Table = ({ valuesToRender }) => {
               </CardWrapper>
             </TableCell>
 
+            <TableCell flexBasis="16rem" capitalize>
+              {item.company_id.name}
+            </TableCell>
             <TableCell flexBasis="8rem" capitalize>
               {item.role}
+            </TableCell>
+            <TableCell flexBasis="8rem" capitalize>
+              {item.status}
             </TableCell>
 
             <TableCell flexBasis="8rem" rightAlign>
@@ -76,10 +85,6 @@ const Table = ({ valuesToRender }) => {
   )
 }
 
-const StyledSpan = styled.span`
-  height: 0.75rem;
-  padding-top: 2px;
-`
 
 const Wrapper = styled.div`
   height: 3rem;

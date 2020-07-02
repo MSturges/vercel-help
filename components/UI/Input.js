@@ -66,11 +66,11 @@ class Input extends React.Component {
     })
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setState({ filled: this.props.value !== '' })
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.value !== nextProps.value) {
       const { limit } = nextProps
       const state = {

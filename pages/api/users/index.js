@@ -18,7 +18,7 @@ handler.get(async (req, res) => {
   }
 
   const total = await Models.User.countDocuments($query).exec()
-  const users = await Models.User.find($query, { email: 1, username: 1, name: 1, status: 1 })
+  const users = await Models.User.find($query, { email: 1, name: 1, status: 1, profile_image: 1, role: 1 })
     .populate({
       path: 'company_id',
       model: Models.Company,

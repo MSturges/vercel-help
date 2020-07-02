@@ -1,10 +1,10 @@
-import Router from 'next/router'
+// import Router from 'next/router'
 import { Cookies } from 'react-cookie'
 
 import Home from '../components/Home/index'
 // set up cookies
 const cookies = new Cookies()
-function HomePage({ data: {total, users} }) {
+function HomePage({ data: { total, users } }) {
   return <Home total={total} users={users} />
 }
 
@@ -17,10 +17,6 @@ HomePage.getInitialProps = async ctx => {
   } else {
     // we dont have request info aka Client Side
     token = cookies.get('token')
-    // ctx.res.writeHead(302, {
-    //   Location: '/login'
-    // })
-    // ctx.res.end()
   }
 
   const query = {
@@ -41,13 +37,19 @@ HomePage.getInitialProps = async ctx => {
       }
     )
 
+    if (res.status === 401) {
+      ctx.res.writeHead(302, {
+        Location: '/login'
+      })
+      ctx.res.end()
+    }
+
     const data = await res.json(res)
+
     return { data }
   } catch (e) {
     console.log('e', e)
   }
-
-
 }
 
 export default HomePage

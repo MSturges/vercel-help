@@ -24,6 +24,8 @@ handler.post(async (req, res) => {
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign({ email: user.email }, process.env.jwt_secret, { expiresIn: 21600 }) // 6hr token
+
+
       return res.end(JSON.stringify({ token }))
     }
     res.status(401).json({ message: 'Unauthorized' })

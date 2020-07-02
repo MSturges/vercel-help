@@ -31,9 +31,10 @@ const Login = props => (
             }
 
             const data = await res.json()
-            cookies.set('token', data.token)
 
-            Router.push('/')
+            cookies.set('token', data.token)
+            // pushing to just / was broken,  this was the upvoted SO answer
+            Router.push('/error', '/')
           } catch (e) {
             setSubmitting(false)
 

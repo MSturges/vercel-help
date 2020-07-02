@@ -30,6 +30,7 @@ class Button extends React.Component {
     const { label, hoverLabel, transitionLabel } = this.props
     const { hover } = this.state
 
+
     let displayLabel = label
     if (hover && hoverLabel !== '') {
       displayLabel = hoverLabel

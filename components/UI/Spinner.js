@@ -3,6 +3,19 @@ import styled, { css } from 'styled-components'
 import { rgba } from 'polished'
 
 const Spinner = styled.div`
+
+
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+
+
   height: ${props => props.height};
   width: ${props => props.height};
   border: 2px solid transparent;

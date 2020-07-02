@@ -30,7 +30,9 @@ const SearchBar = ({
           e.persist()
           handleClearSearchTerm()
         }}
-      />
+      >
+        x
+      </CloseBtn>
     </StyledSearchWrap>
   </StyledWrapper>
 )
@@ -90,11 +92,6 @@ const CloseBtn = styled.div`
   cursor: pointer;
   transition: all 0.15s linear;
   margin-top: 4px;
-  &::before {
-    color: ${props => props.theme.defaultColor.white};
-    content: 'close';
-    font-family: 'Material Icons';
-  }
 
   &:hover {
     background: ${props => props.theme.defaultColor.midPurple};
