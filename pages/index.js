@@ -1,7 +1,7 @@
 // import Router from 'next/router'
 import { Cookies } from 'react-cookie'
-
 import Home from '../components/Home/index'
+
 // set up cookies
 const cookies = new Cookies()
 function HomePage({ data: { total, users } }) {

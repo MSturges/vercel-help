@@ -13,10 +13,8 @@ const database = async (req, res, next) => {
   return await promiseRetry(
     async retry => {
       if (conn && conn.readyState === 1) {
-        return {
-          conn,
-          Models: Models(conn)
-        }
+        req.Models = Models(conn)
+        next()
       }
       try {
         conn = await mongoose.createConnection(process.env.MONGO, {
