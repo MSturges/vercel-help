@@ -33,7 +33,7 @@ export const TableWrapper = styled.div`
       `
     }
     return css`
-      max-height: calc(100vh - 25rem);
+      max-height: calc(100vh - 12rem);
     `
   }}
 `
