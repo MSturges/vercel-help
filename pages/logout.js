@@ -1,17 +1,5 @@
-import React from 'react'
+import LogoutComponent from '../components/Logout'
 
-const Navbar = () => {
-  const [, { mutate }] = useUser()
-  const handleLogout = async () => {
-    await fetch('/api/auth', {
-      method: 'DELETE'
-    })
-    // set the user state to null
-    mutate(null)
-  }
-  return (
-    /* ... */
-    <button onClick={handleLogout}>Logout</button>
-    /* ... */
-  )
+export default function Login() {
+  return <LogoutComponent />
 }

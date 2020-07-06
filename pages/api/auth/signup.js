@@ -1,14 +1,15 @@
+import nextConnect from 'next-connect'
 import qs from 'qs'
 import bcrypt from 'bcryptjs'
-
 import middleware from '../../../middlewares/middleware'
 
-export default async (req, res) => {
+const handler = nextConnect()
+handler.use(middleware)
+
+handler.post(async (req, res) => {
+  const { Models, body } = req
+
   try {
-    await middleware(req, res)
-
-    const { Models, body } = req
-
     const { email, password } = qs.parse(body)
     const hashPassword = await bcrypt.hash(password, 10)
 
@@ -17,11 +18,10 @@ export default async (req, res) => {
       password: hashPassword
     })
 
-    console.log('Admin', Admin)
+    return res.end(JSON.stringify({ message: 'success' }))
   } catch (e) {
     console.log('e', e)
-    res.end('e', e)
   }
+})
 
-  res.end('e')
-}
+export default handler

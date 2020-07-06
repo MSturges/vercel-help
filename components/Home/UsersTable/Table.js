@@ -28,6 +28,13 @@ const Table = ({ valuesToRender }) => {
       // handleOpenViewUserDrawer(item._id)
     }
   }
+
+  const loginAsUser = (user) => {
+    console.log('user', user)
+  }
+
+
+
   return (
     <TableWrapper minWidth="1000px">
       <TableHeadRow top>

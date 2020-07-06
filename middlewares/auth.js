@@ -6,7 +6,7 @@ const auth = async (req, res, next) => {
   // console.log('get to auth middle')
 
   // login does not require jwt verification
-  if (req.url === '/api/auth/login') {
+  if (req.url === '/api/auth/login' || req.url === '/api/auth/signup') {
     // next middleware
     return next()
   }

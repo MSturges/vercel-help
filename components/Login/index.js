@@ -27,7 +27,8 @@ const Login = props => (
             setSubmitting(false)
 
             if (res.status === 401) {
-              setErrors({ serverError: 'Email or password is incorrect' })
+              setErrors({ serverError: 'Email or password is incorrect, or unverified account' })
+              return
             }
 
             const data = await res.json()

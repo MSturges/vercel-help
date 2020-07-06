@@ -11,20 +11,18 @@ handler.post(async (req, res) => {
   const { Models, body } = req
   const { email, password } = qs.parse(body)
 
-
   try {
     const user = await Models.Admin.findOne({
       email
     })
 
-    if (!user) {
+    if (!user || !user.verified) {
       res.status(401).json({ message: 'Unauthorized' })
       res.end()
     }
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign({ email: user.email }, process.env.jwt_secret, { expiresIn: 21600 }) // 6hr token
-
 
       return res.end(JSON.stringify({ token }))
     }
