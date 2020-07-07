@@ -21,7 +21,7 @@ const auth = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.jwt_secret)
-    console.log('decoded', decoded)
+    // console.log('decoded', decoded)
   } catch (err) {
     // Catch the JWT Expired or Invalid errors
     console.log('auth middle error', err)

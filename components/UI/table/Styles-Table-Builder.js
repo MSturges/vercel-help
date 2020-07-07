@@ -151,7 +151,7 @@ export const TableCell = styled.div`
     rightAlign
       ? css`
           justify-content: flex-end;
-          padding-right: 2rem;
+          /* padding-right: 2rem; */
         `
       : ''}
   ${({ centerAlign }) =>
