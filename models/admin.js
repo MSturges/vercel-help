@@ -25,7 +25,7 @@ const Admin = conn => {
         default: Date.now
       }
     },
-    { collection: 'admin_users', versionKey: false }
+    { collection: 'admin_user', versionKey: false }
   )
   AdminSchema.index({ email: 1 }, { unique: true })
 
