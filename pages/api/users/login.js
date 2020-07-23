@@ -1,7 +1,7 @@
 /* eslint-disable radix */
 /* eslint-disable dot-notation */
-import nextConnect from 'next-connect'
 import jwt from 'jsonwebtoken'
+import nextConnect from 'next-connect'
 import qs from 'qs'
 import middleware from '../../../middlewares/middleware'
 
@@ -9,7 +9,6 @@ const handler = nextConnect()
 handler.use(middleware)
 
 handler.post(async (req, res) => {
-  console.log('yo')
   const { Models, body } = req
 
   const { id } = qs.parse(body)
