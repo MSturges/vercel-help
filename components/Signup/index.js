@@ -7,7 +7,7 @@ import Router from 'next/router'
 import { Button, Notice, Input } from '../UI/index'
 
 const Signup = props => {
-  const [successMessage, setSuccessMessage] = useState(true)
+  const [successMessage, setSuccessMessage] = useState(false)
 
   return (
     <Container>
