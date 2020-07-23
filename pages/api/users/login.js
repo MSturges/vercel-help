@@ -17,10 +17,10 @@ handler.post(async (req, res) => {
 
   const token = jwt.sign(
     {
-      email: user.email,
-      user_id: user.user_id,
-      team_id: user.team_id,
-      company_id: user.company_id
+      'custom:email': user.email,
+      'custom:user_id': user._id.toString(),
+      'custom:team_id': user.team_id,
+      'custom:company_id': user.company_id
     },
     process.env.jwt_secret,
     { expiresIn: 21600 }
