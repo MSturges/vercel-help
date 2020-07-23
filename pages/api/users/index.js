@@ -10,28 +10,42 @@ handler.get(async (req, res) => {
   const { Models } = req
   const { skip, limit, sort_column, sort_dir, q } = req.query
 
-  const $query = {}
-  if (q !== '') {
-    $query['$text'] = { $search: q }
+  const $query = {
+    status: 'active'
   }
-  const total = await Models.User.countDocuments($query).exec()
-  const users = await Models.User.find($query, {
-    email: 1,
-    name: 1,
-    status: 1,
-    profile_image: 1,
-    role: 1
-  })
-    .populate({
-      path: 'company_id',
-      model: Models.Company,
-      select: 'name'
+  let sort = [[sort_column, sort_dir]]
+  if (q !== '') {
+    sort = { score: { $meta: 'textScore' } }
+    $query['$text'] = { $search: q, $language: 'none' }
+  }
+  try {
+    const total = await Models.User.countDocuments($query).exec()
+    const docs = await Models.User.find($query, {
+      email: 1,
+      name: 1,
+      status: 1,
+      profile_image: 1,
+      role: 1,
+      score: { $meta: 'textScore' }
     })
-    .sort([[sort_column, sort_dir]])
-    .skip(parseInt(skip))
-    .limit(parseInt(limit))
-    .exec()
-  return res.send({ users, total })
+      .populate({
+        path: 'company_id',
+        model: Models.Company,
+        select: 'name'
+      })
+      .sort(sort)
+      .skip(parseInt(skip))
+      .limit(parseInt(limit))
+      .exec()
+    const users = docs.map(u => {
+      u.company_id = !u.company_id ? {} : u.company_id
+      return u
+    })
+    return res.send({ users, total })
+  } catch (e) {
+    console.error(e)
+    return res.status(500).send(e.message)
+  }
 })
 
 export default handler
