@@ -1,12 +1,11 @@
 /* eslint-disable radix */
-import React, { useEffect, useState, Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Cookies } from 'react-cookie'
-
 import { useIsMount } from '../../../hooks/useIsMount'
+import { FullPageLoader } from '../../UI/index'
+import Navigation from './Navigation'
 import SearchBar from './SearchBar'
 import Table from './Table'
-import Navigation from './Navigation'
-import { FullPageLoader } from '../../UI/index'
 
 const cookies = new Cookies()
 

@@ -8,7 +8,6 @@ handler.use(middleware)
 
 handler.get(async (req, res) => {
   const { Models } = req
-
   const { skip, limit, sort_column, sort_dir, q } = req.query
 
   const $query = {}
