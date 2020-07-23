@@ -1,8 +1,5 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-
-import { TableWrapper, TableHeadRow, TableHeaderCell, TableBody, NoData } from '../../UI/index'
-
+import React from 'react'
+import { NoData, TableBody, TableHeaderCell, TableHeadRow, TableWrapper } from '../../UI/index'
 import TableRow from './TableRow'
 
 const Table = ({ valuesToRender }) => {
@@ -21,9 +18,11 @@ const Table = ({ valuesToRender }) => {
       </TableHeadRow>
       <TableBody>
         {valuesToRender.map((item, index) => {
-          return <TableRow item={item} noBorder={valuesToRender.length === index + 1} key={item._id} />
+          return (
+            <TableRow item={item} noBorder={valuesToRender.length === index + 1} key={item._id} />
+          )
         })}
-        {valuesToRender.length <= 0 ? <NoData>No Teams Members</NoData> : ''}
+        {valuesToRender.length <= 0 ? <NoData>No Users Found</NoData> : ''}
       </TableBody>
     </TableWrapper>
   )

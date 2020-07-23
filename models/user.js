@@ -152,9 +152,7 @@ const User = conn => {
   )
 
   User.index({
-    email: 'text',
-    first_name: 'text',
-    last_name: 'text'
+    email: 'text'
   })
 
   return conn.model('user', User)
