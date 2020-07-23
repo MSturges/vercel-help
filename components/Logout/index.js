@@ -4,9 +4,11 @@ import Router from 'next/router'
 const cookies = new Cookies()
 
 const Logout = () => {
-  cookies.remove('token')
+  if (typeof window !== 'undefined') {
+    cookies.remove('token')
 
-  Router.push('/login')
+    Router.push('/login')
+  }
 
   return <div>Logout...</div>
 }
