@@ -30,7 +30,7 @@ HomePage.getInitialProps = async ctx => {
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}users?skip=${query.skip}&limit=${query.limit}&sort_column=${query.sort_column}&sort_dir=${query.sort_dir}&q=${query.q}`,
+      `${ctx.req.headers.referer}api/users?skip=${query.skip}&limit=${query.limit}&sort_column=${query.sort_column}&sort_dir=${query.sort_dir}&q=${query.q}`,
       {
         method: 'GET',
         headers: { Authorization: token }

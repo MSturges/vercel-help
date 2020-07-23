@@ -41,7 +41,7 @@ const UsersTable = ({ users, total }) => {
       const token = cookies.get('token')
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}users?skip=${queryState.skip}&limit=${queryState.limit}&sort_column=${queryState.sort_column}&sort_dir=${queryState.sort_dir}&q=${queryState.q}`,
+          `/api/users?skip=${queryState.skip}&limit=${queryState.limit}&sort_column=${queryState.sort_column}&sort_dir=${queryState.sort_dir}&q=${queryState.q}`,
           {
             method: 'GET',
             headers: { Authorization: token }
