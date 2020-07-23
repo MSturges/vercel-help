@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const Admin = conn => {
-  if (conn.models.user) return conn.models.user
+  if (conn.models.admin) return conn.models.admin
 
   const AdminSchema = new mongoose.Schema(
     {

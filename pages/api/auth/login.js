@@ -17,8 +17,7 @@ handler.post(async (req, res) => {
     })
 
     if (!user || !user.verified) {
-      res.status(401).json({ message: 'Unauthorized' })
-      res.end()
+      return res.status(401).send({ message: 'Unauthorized' })
     }
 
     if (user && (await bcrypt.compare(password, user.password))) {
@@ -26,8 +25,7 @@ handler.post(async (req, res) => {
 
       return res.end(JSON.stringify({ token }))
     }
-    res.status(401).json({ message: 'Unauthorized' })
-    res.end()
+    res.status(401).send({ message: 'Unauthorized' })
   } catch (e) {
     console.log('e', e)
   }
