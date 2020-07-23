@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
 import qs from 'qs'
+import React, { useState } from 'react'
 import { Cookies } from 'react-cookie'
-
+import styled from 'styled-components'
 import {
+  Button,
   CardImage,
   CardInfoColumn,
   CardInfoColumnDesctiption,
@@ -11,8 +11,7 @@ import {
   CardWrapper,
   Chip,
   TableCell,
-  TableRow,
-  Button
+  TableRow
 } from '../../UI/index'
 
 const cookies = new Cookies()
@@ -33,10 +32,7 @@ const TableRowComponent = ({ item, noBorder }) => {
 
       const responseData = await response.json()
 
-      localStorage.setItem('admin_token_yo', responseData.token)
-
       const encodedCode = encodeURIComponent(responseData.token)
-
 
       window.open(`${process.env.NEXT_PUBLIC_PLATFORM_URL}/admin?=${encodedCode}`, '_blank')
 

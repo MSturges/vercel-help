@@ -36,7 +36,7 @@ HomePage.getInitialProps = async ctx => {
         headers: { Authorization: token }
       }
     )
-
+    console.log(res.status)
     if (res.status === 401) {
       ctx.res.writeHead(302, {
         Location: '/login'
