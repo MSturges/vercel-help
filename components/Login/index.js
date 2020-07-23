@@ -1,10 +1,9 @@
 import { Formik } from 'formik'
-import styled, { css } from 'styled-components'
+import Router from 'next/router'
 import qs from 'qs'
 import { Cookies } from 'react-cookie'
-import Router from 'next/router'
-
-import { Button, Notice, Input } from '../UI/index'
+import styled, { css } from 'styled-components'
+import { Button, Input, Notice } from '../UI/index'
 
 const cookies = new Cookies()
 
@@ -15,7 +14,7 @@ const Login = props => (
       <StyledP>Sign in to your account to continue.</StyledP>
       <Formik
         enableReinitialize
-        initialValues={{ email: 'max@gmail.com', password: 'Srehctap660!' }}
+        initialValues={{ email: '', password: '' }}
         onSubmit={async (values, { setSubmitting, setErrors }) => {
           setSubmitting(true)
 

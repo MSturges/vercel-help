@@ -20,7 +20,7 @@ handler.get(async (req, res) => {
   }
   try {
     const total = await Models.User.countDocuments($query).exec()
-    const docs = await Models.User.find($query, {
+    const users = await Models.User.find($query, {
       email: 1,
       name: 1,
       status: 1,
@@ -37,10 +37,7 @@ handler.get(async (req, res) => {
       .skip(parseInt(skip))
       .limit(parseInt(limit))
       .exec()
-    const users = docs.map(u => {
-      u.company_id = !u.company_id ? {} : u.company_id
-      return u
-    })
+
     return res.send({ users, total })
   } catch (e) {
     console.error(e)

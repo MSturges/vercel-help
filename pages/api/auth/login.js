@@ -1,7 +1,7 @@
-import qs from 'qs'
 import bcrypt from 'bcryptjs'
-import nextConnect from 'next-connect'
 import jwt from 'jsonwebtoken'
+import nextConnect from 'next-connect'
+import qs from 'qs'
 import middleware from '../../../middlewares/middleware'
 
 const handler = nextConnect()
