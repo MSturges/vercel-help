@@ -47,6 +47,10 @@ const UsersTable = ({ users, total }) => {
           }
         )
 
+        console.log('get data: repsonse',response)
+        console.log('get data: actual data',response.json())
+
+
         const data = await response.json()
 
         // if search term...
