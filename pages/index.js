@@ -28,7 +28,6 @@ HomePage.getInitialProps = async ctx => {
     id: ''
   }
   const api_url = `http://${ctx.req.headers.host}/api/`
-  console.log(ctx.req.protocol)
   try {
     const res = await fetch(
       `${api_url}users?skip=${query.skip}&limit=${query.limit}&sort_column=${query.sort_column}&sort_dir=${query.sort_dir}&q=${query.q}`,
@@ -45,7 +44,7 @@ HomePage.getInitialProps = async ctx => {
       ctx.res.end()
     }
 
-    const data = await res.json(res)
+    const data = await ctx.res.json(res)
 
     return { data }
   } catch (e) {
