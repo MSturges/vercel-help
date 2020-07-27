@@ -36,7 +36,6 @@ HomePage.getInitialProps = async ctx => {
         headers: { Authorization: token }
       }
     )
-    console.log('get initial props:', res)
     if (res.status === 401) {
       ctx.res.writeHead(302, {
         Location: '/login'
@@ -44,7 +43,7 @@ HomePage.getInitialProps = async ctx => {
       ctx.res.end()
     }
 
-    const data = await ctx.res.json(res)
+    const data = await res.json()
 
     return { data }
   } catch (e) {
