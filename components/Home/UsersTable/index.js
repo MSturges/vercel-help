@@ -47,12 +47,8 @@ const UsersTable = ({ users, total }) => {
           }
         )
 
-        console.log('get data: repsonse',response)
-        console.log('get data: actual data',response.json())
-
-
         const data = await response.json()
-
+        console.log('data', data)
         // if search term...
         if (queryState.q !== '') {
           if (queryState.skip > 0) {
