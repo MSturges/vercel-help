@@ -56,6 +56,7 @@ const Login = props => (
               <Notice isError isSmall isVisible={errors.serverError}>
                 <p>{errors.serverError}</p>
               </Notice>
+              test: {process.env.NEXT_PUBLIC_TEST}
               <Input
                 type="email"
                 name="email"
