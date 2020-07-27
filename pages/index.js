@@ -27,7 +27,7 @@ HomePage.getInitialProps = async ctx => {
     q: '',
     id: ''
   }
-  const api_url = `https://${ctx.req.headers.host}/api/`
+  const api_url = `http://${ctx.req.headers.host}/api/`
   console.log(ctx.req.protocol)
   try {
     const res = await fetch(
@@ -42,7 +42,7 @@ HomePage.getInitialProps = async ctx => {
       ctx.res.writeHead(302, {
         Location: '/login'
       })
-      return ctx.res.end()
+      ctx.res.end()
     }
 
     const data = await res.json(res)
