@@ -28,7 +28,7 @@
     "polished": "^1.3.0",
     "promise-retry": "^2.0.1",
     "prop-types": "^15.7.2",
-    "qs": "^6.9.4",
+    "qs": "^6.9.7",
     "react": "16.13.1",
     "react-animations": "^1.0.0",
     "react-cookie": "^4.0.3",
